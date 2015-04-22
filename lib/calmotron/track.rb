@@ -1,8 +1,9 @@
 class Track
-  attr_reader :notes
+  attr_reader :notes, :octave
 
-  def initialize
+  def initialize(octave = 3)
     @notes = []
+    @octave = octave
   end
 
   def add_random_note
