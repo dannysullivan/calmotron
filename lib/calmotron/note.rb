@@ -1,6 +1,6 @@
 class Note
   SCALE_DEGREE_RANGE = 5
-  DURATION_RANGE = 5
+  DURATION_RANGE = 4
 
   attr_accessor :scale_degree, :duration
 
