@@ -21,6 +21,14 @@ class SongTest < MiniTest::Test
     song.add_track(1, 1)
     output = song.to_midi_sequence
     assert_instance_of(MIDI::Sequence, output)
+    # first output track is reserved for program changes
+    assert_equal(1, output.tracks.first.events.count)
+
+    # second output track should reflect our created track
+    output_track_events = output.tracks[1].events
+    assert_equal(32, output_track_events.count)
+    assert_instance_of(MIDI::NoteOn, output_track_events.first)
+    assert_instance_of(MIDI::NoteOff, output_track_events.last)
   end
 
   def test_add_track
