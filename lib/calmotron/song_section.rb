@@ -28,10 +28,10 @@ class SongSection
   end
 
   def create_main_melody
-    @main_melody = []
+    melody_builder = MelodyBuilder.new
     MELODY_NOTE_COUNT.times do
-      @main_melody << Note.build_random
+      melody_builder.add_note
     end
-    @main_melody
+    @main_melody = melody_builder.notes
   end
 end
