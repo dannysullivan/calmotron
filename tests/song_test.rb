@@ -9,6 +9,15 @@ class SongTest < MiniTest::Test
     assert_equal(song.scale_degree_to_midi_note(4, 3), 67)
   end
 
+  def test_attributes
+    valid_key_song = Song.new('A')
+    assert_equal(valid_key_song.key, 'A')
+
+    #Invalid keys default to C
+    invalid_key_song = Song.new('Q')
+    assert_equal(invalid_key_song.key, 'C')
+  end
+
   def test_to_midi_sequence
     song = Song.new
     song.add_track(1, 1)

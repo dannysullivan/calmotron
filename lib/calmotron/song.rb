@@ -10,12 +10,31 @@ class Song
     5 => 9
   }
 
-  attr_reader :tracks
-  attr_reader :sections
+  FIRST_NOTE_IN_KEY = {
+    'C'  => 24,
+    'C#' => 25,
+    'D'  => 26,
+    'D#' => 27,
+    'E'  => 28,
+    'F'  => 29,
+    'F#' => 30,
+    'G'  => 31,
+    'G#' => 32,
+    'A'  => 33,
+    'A#' => 34,
+    'B'  => 35
+  }
 
-  def initialize
+  attr_reader :tracks, :sections, :key
+
+  def initialize(key = 'C')
     @tracks = []
     @sections = []
+    if FIRST_NOTE_IN_KEY.keys.include?(key)
+      @key = key
+    else
+      @key = 'C'
+    end
   end
 
   def add_track(octave, duration_multiplier)
@@ -31,7 +50,7 @@ class Song
   end
 
   def scale_degree_to_midi_note(scale_degree, octave)
-    24 + (12 * octave) + MIDI_NOTES[scale_degree]
+    FIRST_NOTE_IN_KEY[key] + (12 * octave) + MIDI_NOTES[scale_degree]
   end
 
   def to_midi_sequence
@@ -46,8 +65,8 @@ class Song
 
       track.notes.each do |note|
         midi_note = scale_degree_to_midi_note(note.scale_degree, track.octave)
-        melody.events << MIDI::NoteOnEvent.new(0, midi_note, 127)
-        melody.events << MIDI::NoteOffEvent.new(0, midi_note, 127, midi_song.length_to_delta(note.duration/1.0))
+        melody.events << MIDI::NoteOnEvent.new(0, midi_note, 15)
+        melody.events << MIDI::NoteOffEvent.new(0, midi_note, 15, midi_song.length_to_delta(note.duration/1.0))
       end
     end
 

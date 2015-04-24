@@ -6,11 +6,10 @@ require_relative 'melody_builder'
 require 'midilib'
 require 'pry'
 
-song = Song.new
+song = Song.new('B')
 song.add_track(1, 4)
 song.add_track(3, 2)
 song.add_track(4, 1)
-song.add_track(4, 0.5)
 
 song.add_section
 song.add_section
