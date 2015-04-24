@@ -3,6 +3,7 @@ require_relative 'track'
 require_relative 'melody_note'
 require_relative 'song_section'
 require_relative 'melody_builder'
+require_relative 'music_theory'
 require 'midilib'
 require 'pry'
 

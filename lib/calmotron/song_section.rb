@@ -4,11 +4,11 @@ class SongSection
   DURATION_RANGE = 4
   OVERALL_LENGTH = 4
 
-  attr_reader :song, :main_melody, :available_scale_degrees
+  attr_reader :song, :main_melody, :available_semitones_from_tonic
 
-  def initialize(song, available_scale_degrees)
+  def initialize(song, available_semitones_from_tonic)
     @song = song
-    @available_scale_degrees = available_scale_degrees
+    @available_semitones_from_tonic = available_semitones_from_tonic
     create_main_melody
     add_melody_to_song
   end
@@ -19,7 +19,7 @@ class SongSection
       repeats.times do
         main_melody.each do |note|
           note = MelodyNote.new(
-            note.scale_degree,
+            note.semitones_from_tonic,
             note.duration * track.duration_multiplier
           )
           track.add_note(note)
@@ -29,7 +29,7 @@ class SongSection
   end
 
   def create_main_melody
-    melody_builder = MelodyBuilder.new(available_scale_degrees, DURATION_RANGE)
+    melody_builder = MelodyBuilder.new(available_semitones_from_tonic, DURATION_RANGE)
     MELODY_NOTE_COUNT.times do
       melody_builder.add_note
     end

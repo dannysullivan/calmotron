@@ -4,11 +4,6 @@ require 'calmotron/track'
 require 'midilib'
 
 class SongTest < MiniTest::Test
-  def test_scale_degree_to_midi_note
-    song = Song.new('C')
-    assert_equal(song.scale_degree_to_midi_note(4, 3), 67)
-  end
-
   def test_attributes
     valid_key_song = Song.new('A')
     assert_equal(valid_key_song.key, 'A')
