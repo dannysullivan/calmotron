@@ -6,20 +6,18 @@ require 'midilib'
 
 class SongSectionTest < MiniTest::Test
   def test_main_melody
-    # Main melody should be an array of pentatonic scale degrees
-    song_section = SongSection.new(Song.new)
+    # Main melody should be an array of notes with scale degrees in the given range
+    song_section = SongSection.new(Song.new('C'), (1..5).to_a)
     main_melody = song_section.main_melody
     assert(main_melody.all?{|note| note.scale_degree.between?(1, 5)})
   end
 
   def test_add_melody_to_song
     # Main melody should be added to each song track
-    song = Song.new
-    song_section = song.add_section
-    main_melody = song_section.main_melody
+    song = Song.new('C')
     song.add_track(1, 2)
     song.add_track(3, 1)
-    section = song.add_section
+    section = song.add_section((1..5).to_a)
 
     bass_track = song.tracks.first
     assert_equal(8, bass_track.notes.length)

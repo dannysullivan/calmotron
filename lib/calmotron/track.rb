@@ -7,10 +7,6 @@ class Track
     @duration_multiplier = duration_multiplier
   end
 
-  def add_random_note
-    @notes << Note.build_random
-  end
-
   def add_note(note)
     @notes << note
   end

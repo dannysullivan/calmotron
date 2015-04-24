@@ -27,7 +27,7 @@ class Song
 
   attr_reader :tracks, :sections, :key
 
-  def initialize(key = 'C')
+  def initialize(key)
     @tracks = []
     @sections = []
     if FIRST_NOTE_IN_KEY.keys.include?(key)
@@ -43,8 +43,8 @@ class Song
     track
   end
 
-  def add_section
-    song_section = SongSection.new(self)
+  def add_section(available_scale_degrees)
+    song_section = SongSection.new(self, available_scale_degrees)
     @sections << song_section
     song_section
   end

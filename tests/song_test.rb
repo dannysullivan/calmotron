@@ -5,7 +5,7 @@ require 'midilib'
 
 class SongTest < MiniTest::Test
   def test_scale_degree_to_midi_note
-    song = Song.new
+    song = Song.new('C')
     assert_equal(song.scale_degree_to_midi_note(4, 3), 67)
   end
 
@@ -19,9 +19,9 @@ class SongTest < MiniTest::Test
   end
 
   def test_to_midi_sequence
-    song = Song.new
+    song = Song.new('C')
     song.add_track(1, 1)
-    song.add_section
+    song.add_section((1..5).to_a)
     output = song.to_midi_sequence
     assert_instance_of(MIDI::Sequence, output)
     # first output track is reserved for program changes
@@ -35,7 +35,7 @@ class SongTest < MiniTest::Test
   end
 
   def test_add_track
-    song = Song.new
+    song = Song.new('C')
     song.add_track(1, 2)
     bass_track = song.tracks.first
     assert_equal(bass_track.octave, 1)
