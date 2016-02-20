@@ -9,12 +9,9 @@ class MelodyBuilder
 
   def add_note
     new_note = MelodyNote.build_random(available_semitones_from_tonic, duration_range)
-    if notes.last
-      last_note_semitones_from_tonic = notes.last.semitones_from_tonic
-      while new_note.semitones_from_tonic == last_note_semitones_from_tonic do
-        new_note = MelodyNote.build_random(available_semitones_from_tonic, duration_range)
-      end
-    end
+    last_note_semitones_from_tonic = notes.last ? notes.last.semitones_from_tonic : nil
+    different_semitones = available_semitones_from_tonic - [last_note_semitones_from_tonic]
+    new_note = MelodyNote.build_random(different_semitones, duration_range)
     @notes << new_note
   end
 end

@@ -14,6 +14,10 @@ class Song
     end
   end
 
+  def add_bass_track
+    @tracks << BassTrack.new
+  end
+
   def add_track(octave, duration_multiplier)
     track = Track.new(octave, duration_multiplier)
     @tracks << track
